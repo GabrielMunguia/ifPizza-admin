@@ -113,16 +113,15 @@ export const AddProduct = () => {
          nombreCategoria,
        });
    }else{
-     
+    const nombreCategoria = categorys.find(
+      (item) => item.id === values.categoria
+    )?.name;
       if(fileImage){
          //primero subimos la imagen
        const urlImagen = await uploadImageProduct(fileImage,imagenNombre);
        //despues subimos el producto
      
-       const nombreCategoria = categorys.find(
-         (item) => item.id === values.categoria
-       )?.name;
-       
+      
        const resp = await updateProduct(id,true,{
          ...values,
          imagenURL: urlImagen,
@@ -130,7 +129,11 @@ export const AddProduct = () => {
          nombreCategoria,
        });
       }else{
-        const resp = await updateProduct(id,false,values);
+        
+        const resp = await updateProduct(id,false,{
+          ...values,
+          nombreCategoria:nombreCategoria ,
+        });
       }
    }
  
