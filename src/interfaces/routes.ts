@@ -3,7 +3,7 @@ export interface IPrivateRoutes {
     to: string,
     title: string,
     Component: React.ComponentType<any>,
-    exact: boolean,
+    visible: boolean,
     icon?: string,
 
 }

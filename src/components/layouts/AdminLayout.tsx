@@ -151,42 +151,42 @@ export default function AdminLayout({
         </DrawerHeader>
         <Divider />
         <List>
-          {privateRoutes.map(({ to, title, icon }: IPrivateRoutes, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+          {privateRoutes.map(({ to, title, icon,visible }: IPrivateRoutes, index) => (
+            visible && (<ListItem key={index} disablePadding sx={{ display: "block" }}>
          
-              <NavLink to={to}>
-              <ListItemButton
+            <NavLink to={to}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                <i className={`${icon}`}></i>
+              </ListItemIcon>
+         
+              <ListItemText
+                  primary={title}
+                  primaryTypographyProps={{
+                      variant: "body2",
+                      sx: { fontWeight: "medium" },
                   }}
-                >
-                  <i className={`${icon}`}></i>
-                </ListItemIcon>
-           
-                <ListItemText
-                    primary={title}
-                    primaryTypographyProps={{
-                        variant: "body2",
-                        sx: { fontWeight: "medium" },
-                    }}
-                    sx={{ opacity: open ? 1 : 0 }}
-                />
+                  sx={{ opacity: open ? 1 : 0 }}
+              />
 
-               
-              </ListItemButton>
+             
+            </ListItemButton>
 
 
-              </NavLink>
-            </ListItem>
+            </NavLink>
+          </ListItem>)
           ))}
         </List>
         <Divider />

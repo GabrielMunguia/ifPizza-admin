@@ -26,12 +26,12 @@ export const addProduct = async (data: IProduct) => {
   }
 };
 
-export const uploadImageProduct = async (file: File | undefined) => {
+export const uploadImageProduct = async (file: File | undefined,name:string) => {
   try {
     if (file === undefined) return "";
     //configuracion de firebase storage
     const storage = getStorage();
-    const storageRef = refStorage(storage, `products/${file.name}`);
+    const storageRef = refStorage(storage, `products/${name}`);
     await uploadBytes(storageRef, file);
     const url = await getDownloadURL(storageRef);
     return url;
@@ -77,7 +77,7 @@ export const deleteProduct = async (id: string) => {
   }
 };
 
-const getProductById = async (id: string) => {
+export const getProductById = async (id: string) => {
   try {
   return new Promise((resolve, reject) => {
     const dbRef = ref(getDatabase());
@@ -99,3 +99,33 @@ const getProductById = async (id: string) => {
     return null;
   }
 };
+
+
+export const updateProduct = async (id: string,newImage:boolean, data: IProduct) => {
+  try {
+   
+
+    if(newImage){
+    
+      const product:any =  await getProductById(id);
+
+      const nombreImagen = product?.imagenNombre;
+      const storage = getStorage();
+      const desertRef = refStorage(storage, `products/${nombreImagen}`);
+      await deleteObject(desertRef);
+     
+    }
+   
+    const starCountRef = ref(db, "productos/" + id);
+    runTransaction(starCountRef, (prod) => {
+      if (prod) {
+        prod = data;
+      }
+      return prod;
+    });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

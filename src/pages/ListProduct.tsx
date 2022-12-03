@@ -2,7 +2,7 @@ import React, { useState ,useEffect, useContext} from 'react'
 import { AlertContext } from '../context/AlertContext';
 import { IProduct } from '../interfaces/interfaces'
 import { deleteProduct, getAllProducts } from '../services/products';
-import { useNavigate } from "react-router-dom";
+import {  NavLink, useNavigate } from "react-router-dom";
 
 export const ListProduct = () => {
 const [productos, setProductos] = useState<IProduct[]>([]);
@@ -107,7 +107,7 @@ const eliminarProducto =async  (e:any) => {
                             
 
                             <td>
-                                <button value={item.id}   type="button" className='btn btn-primary mx-2'>Editar</button>
+                                <NavLink to={`/editar-producto/${item.id}`}  className='btn btn-primary mx-2'>Editar</NavLink>
                               
                                 <button value={item.id}   onClick={eliminarProducto}  type="button" className='btn btn-danger mx-2'>Eliminar</button>
                             </td>

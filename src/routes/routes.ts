@@ -8,16 +8,24 @@ export const privateRoutes: IPrivateRoutes[] = [
         to: '/inicio',
         title: 'Inicio',
         Component: Home,
-        exact: true,
-        icon: 'fa-solid fa-gauge-high'
+        icon: 'fa-solid fa-gauge-high',
+        visible: true
     },
     {
         path: '/agregar-producto',
         to: '/agregar-producto',
         title: 'Agregar producto',
         Component: AddProduct,
-        exact: true,
-        icon: 'fa-solid fa-square-plus'
+        icon: 'fa-solid fa-square-plus',
+        visible: true
+    },
+    {
+        path: '/editar-producto/:id',
+        to: '/editar-producto',
+        title: 'Editar producto',
+        Component: AddProduct,
+        icon: 'fa-solid fa-pen-to-square' ,
+        visible: false
     },
     {
         //list products
@@ -26,7 +34,8 @@ export const privateRoutes: IPrivateRoutes[] = [
         title: 'Lista  de productos',
         Component: ListProduct,
         icon: 'fa-solid fa-list',
-        exact: true,
+        visible: true
+       
     },
    
 ]

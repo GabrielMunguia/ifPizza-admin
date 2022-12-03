@@ -9,6 +9,10 @@ export const useForm = ( initialState:any = {} ) => {
         setValues( initialState );
     }
 
+    const loadValues = ( data:any ) => {
+        setValues( data );
+    }
+
 
     const handleInputChange = ({ target }:any) => {
 
@@ -19,6 +23,6 @@ export const useForm = ( initialState:any = {} ) => {
 
     }
 
-    return { values, handleInputChange, reset };
+    return { values, handleInputChange, reset,loadValues };
 
 }

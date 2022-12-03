@@ -14,12 +14,13 @@ import { ICategory, IProduct } from "../interfaces/interfaces";
 import Style from "../assets/css/pages/addProduct.module.css";
 import { addCategory, getAllCategory } from "../services/category";
 import { AlertContext } from "../context/AlertContext";
-import { addProduct, uploadImageProduct } from "../services/products";
+import { addProduct, getProductById, updateProduct, uploadImageProduct } from "../services/products";
+import { useParams } from "react-router-dom";
 const INITIAL_STATE:IProduct = {
   nombre: "",
   descripcion: "",
   precio: 0,
-
+  id: "",
   categoria: "-1",
   imagenURL: "",
   imagenNombre: "",
@@ -28,9 +29,18 @@ const INITIAL_STATE:IProduct = {
 export const AddProduct = () => {
   const [categorys, setCategorys] = useState<ICategory[]>([]);
   const [imageProduct, setImageProduct] = useState("");
-  const { values, handleInputChange,reset } = useForm(INITIAL_STATE);
+  const { values, handleInputChange,reset,loadValues } = useForm(INITIAL_STATE);
   const [fileImage, setFileImage] = useState<File>();
   const { showAlert, closeAlert } = useContext(AlertContext);
+  let { id } = useParams();
+
+  useEffect(() => {
+    if(id){
+      cargarProducto(id);
+    }
+   
+  }, [])
+  
   //Este useEffect se utiliza para obtener todas las categorias de la base de datos
   useEffect(() => {
     const getCategory = async () => {
@@ -44,10 +54,9 @@ export const AddProduct = () => {
           description: item[1]?.descripcion,
         });
       });
-      console.log(lstCategorys);
+    
       setCategorys(lstCategorys);
 
-      // setCategorys(Object.values(data))
     };
     getCategory();
   }, []);
@@ -81,37 +90,65 @@ export const AddProduct = () => {
       return;
     }
     showAlert({
-      text: "Subiendo imagen...",
+      text: "Cargando registro...",
       icon: "info",
       title: "Espere por favor",
       manualClose: true,
     });
-   
-    //primero subimos la imagen
-    const urlImagen = await uploadImageProduct(fileImage);
-    //despues subimos el producto
-  
-    const nombreCategoria = categorys.find(
-      (item) => item.id === values.categoria
-    )?.name;
-    
-    const resp = await addProduct({
-      ...values,
-      imagenURL: urlImagen,
-      imagenNombre: fileImage?.name,
-      nombreCategoria,
-    });
+    const imagenNombre=Date.now()+(fileImage?.name??"-");
+   if(!id){
+       //primero subimos la imagen
+     
+       const urlImagen = await uploadImageProduct(fileImage,imagenNombre);
+       //despues subimos el producto
+     
+       const nombreCategoria = categorys.find(
+         (item) => item.id === values.categoria
+       )?.name;
+       
+       const resp = await addProduct({
+         ...values,
+         imagenURL: urlImagen,
+         imagenNombre,
+         nombreCategoria,
+       });
+   }else{
+     
+      if(fileImage){
+         //primero subimos la imagen
+       const urlImagen = await uploadImageProduct(fileImage,imagenNombre);
+       //despues subimos el producto
+     
+       const nombreCategoria = categorys.find(
+         (item) => item.id === values.categoria
+       )?.name;
+       
+       const resp = await updateProduct(id,true,{
+         ...values,
+         imagenURL: urlImagen,
+         imagenNombre,
+         nombreCategoria,
+       });
+      }else{
+        const resp = await updateProduct(id,false,values);
+      }
+   }
+ 
     closeAlert();
     showAlert({
-      text: "Producto agregado correctamente",
+      text: `Producto ${id?'actualizado':'agregado'}  correctamente`,
       icon: "success",
       title: "Exito",
       timer: 1500,
-    });
-    reset();
-    //quitar la imagen
-    setImageProduct("");
-    setFileImage(undefined);
+    }); 
+    if(!id){
+      reset();
+    
+      //quitar la imagen
+      setImageProduct("");
+      setFileImage(undefined);
+    }
+   
 
    
    } catch (error:any) {
@@ -140,7 +177,7 @@ export const AddProduct = () => {
       mensaje = "Debe seleccionar una categoria";
       esValido = false;
     }
-    else if (!fileImage) {
+    else if (!fileImage && !id) {
       mensaje = "Debe seleccionar una imagen";
       esValido = false;
     }
@@ -166,12 +203,23 @@ export const AddProduct = () => {
   
   }
 
+  const cargarProducto = async (id:string) => {
+    const producto:any = await getProductById(id);
+    if(!producto){
+      return;
+    }
+    loadValues(producto);
+    setImageProduct(producto.imagenURL);
+  
+  }
+
 
 
   return (
     <div>
+      
       <FormLayout>
-        <h1 className="text-center mb-5">Agregar Producto</h1>
+        <h1 className="text-center mb-5">{id?"Actualizar":"Agregar"} Producto</h1>
         <form onSubmit={onSubmit}>
           <div className="d-flex flex-wrap justify-content-center">
             <div className="col-lg-5 mx-4 col-11 mt-2">
@@ -263,14 +311,14 @@ export const AddProduct = () => {
             <div className="mt-3">
               <img
                 className={Style.imageProduct}
-                src={imageProduct !== "" ? imageProduct : "./img/notFound.png"}
+                src={imageProduct !== "" ? imageProduct : "/img/notFound.png"}
                 alt=""
               />
             </div>
           </div>
           <div className="d-flex justify-content-center">
             <Button type="submit" variant="contained" color="primary" className="mt-5">
-              Agregar Producto
+            {id?"Actualizar":"Agregar"} Producto
             </Button>
           </div>
         </form>

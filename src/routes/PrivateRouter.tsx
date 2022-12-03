@@ -8,11 +8,11 @@ export const PrivateRouter = () => {
     <div>
     
         <Routes>
-            {privateRoutes.map(({path,exact,Component}:IPrivateRoutes) => (
+            {privateRoutes.map(({path,Component}:IPrivateRoutes) => (
                 <Route key={path} path={path}   element={<Component/>}/>
             ))}
     
-            <Route path="*" element={<Navigate to="/inicio" replace={true}/>}/>
+            <Route path="*" element={<Navigate to="/inicio" />}/>
             </Routes>
      
     </div>

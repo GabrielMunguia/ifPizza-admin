@@ -36,7 +36,6 @@ export interface IProduct {
     categoria: string;
     imagenURL: string;
     imagenNombre: string;
-   
     nombreCategoria: string;
    
 }
