@@ -1,3 +1,17 @@
+export interface IPrivateRoutes {
+    path: string,
+    to: string,
+    title: string,
+    Component: React.ComponentType<any>,
+    visible: boolean,
+    icon?: string,
+
+}
+export interface IPublicRoutes {
+    path: string,
+    to: string,
+    Component: React.ComponentType<any>,
+}
 export  interface ICategory {
     name: string;
     description: string;
@@ -21,8 +35,9 @@ export interface IAlert {
     cancelButtonText?:string;
 
 }
+type IAlertFunction = ({ title, icon, text, showConfirmButton, timer }: IAlert) => Promise<void> |( ()=>void);
 export interface IAlertContext {
-    showAlert:  ({ title, icon, text, showConfirmButton, timer }: IAlert) => Promise<void> | (  ()=>void) , 
+    showAlert: IAlertFunction  , 
     showConfirmAlert: ({ title, icon, text, timer }: IAlert) => Promise<boolean> | (  ()=>void) ,
     isActive: boolean
     closeAlert: () => void
@@ -39,3 +54,18 @@ export interface IProduct {
     nombreCategoria: string;
    
 }
+
+export interface IUser {
+    user:string,
+    isAuth: boolean,
+}
+export interface IAppContext {
+    alert: IAlertContext;
+    session:{
+        user:IUser;
+        logIn:(user: string, password: string) => Promise<void> | void;
+        logOut:()=>void;
+        
+    }
+}
+   

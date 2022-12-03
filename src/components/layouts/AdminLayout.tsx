@@ -19,10 +19,11 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { privateRoutes } from "../../routes/routes";
-import { IPrivateRoutes } from "../../interfaces/routes";
+import { IPrivateRoutes } from "../../interfaces/interfaces";
 import { NavLink } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { CapitalizarTexto } from "../../helpers/capitalizarTexto";
+import { AppContext } from "../../context/AppContext";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -101,12 +102,16 @@ export default function AdminLayout({
 }) {
   const theme = useTheme();
   const location = useLocation();
+  const {session}=React.useContext(AppContext);
   
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+
+    
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -188,6 +193,39 @@ export default function AdminLayout({
             </NavLink>
           </ListItem>)
           ))}
+
+          <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+              onClick={()=>{session.logOut()}}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <i className="fa-solid fa-arrow-right-from-bracket"></i>
+              </ListItemIcon>
+         
+              <ListItemText
+                  primary={"Cerrar Sesión"}
+                  primaryTypographyProps={{
+                      variant: "body2",
+                      sx: { fontWeight: "medium" },
+                  }}
+                  sx={{ opacity: open ? 1 : 0 }}
+              />
+
+             
+            </ListItemButton>
+
+          
+
         </List>
         <Divider />
       </Drawer>

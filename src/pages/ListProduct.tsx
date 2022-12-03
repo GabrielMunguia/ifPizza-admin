@@ -1,12 +1,14 @@
 import React, { useState ,useEffect, useContext} from 'react'
-import { AlertContext } from '../context/AlertContext';
+import { AppContext } from '../context/AppContext';
 import { IProduct } from '../interfaces/interfaces'
 import { deleteProduct, getAllProducts } from '../services/products';
 import {  NavLink, useNavigate } from "react-router-dom";
 
 export const ListProduct = () => {
 const [productos, setProductos] = useState<IProduct[]>([]);
-const {showAlert,showConfirmAlert,closeAlert }=useContext(AlertContext);
+
+const {alert} = useContext(AppContext);
+  const { showAlert,showConfirmAlert,closeAlert}=alert;
 const navigate = useNavigate();
 
 useEffect(() => {

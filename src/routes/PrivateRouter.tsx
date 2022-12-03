@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route,Routes,Navigate } from 'react-router-dom'
-import { IPrivateRoutes } from '../interfaces/routes'
+import { IPrivateRoutes } from '../interfaces/interfaces'
 import { privateRoutes } from './routes'
 
 export const PrivateRouter = () => {

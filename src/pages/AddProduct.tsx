@@ -13,7 +13,7 @@ import { useForm } from "../hooks/useForm";
 import { ICategory, IProduct } from "../interfaces/interfaces";
 import Style from "../assets/css/pages/addProduct.module.css";
 import { addCategory, getAllCategory } from "../services/category";
-import { AlertContext } from "../context/AlertContext";
+import { AppContext } from "../context/AppContext";
 import { addProduct, getProductById, updateProduct, uploadImageProduct } from "../services/products";
 import { useParams } from "react-router-dom";
 const INITIAL_STATE:IProduct = {
@@ -31,7 +31,9 @@ export const AddProduct = () => {
   const [imageProduct, setImageProduct] = useState("");
   const { values, handleInputChange,reset,loadValues } = useForm(INITIAL_STATE);
   const [fileImage, setFileImage] = useState<File>();
-  const { showAlert, closeAlert } = useContext(AlertContext);
+  const {alert} = useContext(AppContext);
+  const { showAlert, closeAlert}=alert;
+
   let { id } = useParams();
 
   useEffect(() => {

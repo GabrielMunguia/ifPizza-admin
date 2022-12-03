@@ -1,0 +1,17 @@
+.container{
+    background-image: url('/public//img/wallpaper-Pizza.jpg');
+   
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    width: 170px;
+    height: 150px;
+   
+  
+    
+}

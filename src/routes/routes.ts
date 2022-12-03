@@ -1,7 +1,8 @@
 import { Home } from './../pages/Home';
-import { IPrivateRoutes } from './../interfaces/routes';
+import { IPrivateRoutes, IPublicRoutes } from './../interfaces/interfaces';
 import { AddProduct } from '../pages/AddProduct';
 import { ListProduct } from '../pages/ListProduct';
+import { Login } from '../pages/Login';
 export const privateRoutes: IPrivateRoutes[] = [
     {
         path: '/inicio',
@@ -39,3 +40,13 @@ export const privateRoutes: IPrivateRoutes[] = [
     },
    
 ]
+
+export const publicRoutes:IPublicRoutes[] = [
+    {
+        path: '/login',
+        to: '/login',
+        Component: Login
+    }
+]
+
+

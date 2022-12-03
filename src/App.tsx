@@ -1,17 +1,25 @@
-import React from "react";
+import {useContext,useEffect} from "react";
 import AdminLayout from "./components/layouts/AdminLayout";
 import { PrivateRouter } from "./routes/PrivateRouter";
 import { BrowserRouter } from "react-router-dom";
-import { AlertProvider } from "./context/AlertProvider";
+import { ApplicationProvider } from "./context/ApplicationProvider";
+import { AppContext } from "./context/AppContext";
+import { Login } from "./pages/Login";
+import { AppRouter } from "./routes/AppRouter";
 export const App = () => {
+
+
+
+
+  
+ 
+
   return (
-    <AlertProvider>
-      <BrowserRouter>
-        <AdminLayout>
-          <PrivateRouter />
-        </AdminLayout>
-      </BrowserRouter>
-    </AlertProvider>
+    
+    <ApplicationProvider>
+      <AppRouter />
+ 
+    </ApplicationProvider>
   );
 };
 export default App;
