@@ -3,12 +3,17 @@ import Style from '../assets/css/pages/login.module.css'
 import { FormLayout } from '../components/layouts/FormLayout'
 import{Button,TextField} from '@mui/material'
 import { AppContext } from '../context/AppContext'
+import { useForm } from '../hooks/useForm'
 export const Login = () => {
+  const {values,handleInputChange}=useForm({
+    username:'',
+    password:''
+});
     const {session}=useContext(AppContext);
     const {logIn}=session;
     const handleLogin = (e:any) => {
       e.preventDefault();
-        logIn('admin','admin');
+        logIn(values.username,values.password);
     }
   return (
     <div className={Style.container}>
@@ -27,6 +32,9 @@ export const Login = () => {
                     id="outlined-basic"
                     label="Usuario"
                     variant="outlined"
+                    value={values.username}
+                    onChange={handleInputChange}
+                    name="username"
                   
                     margin="normal"
                     className="col-12 col-lg-6 col-xl-4"
@@ -38,6 +46,9 @@ export const Login = () => {
                     variant="outlined"
                     type="password"
                     margin="normal"
+                    value={values.password}
+                    onChange={handleInputChange}
+                    name="password"
                     className="col-12 col-lg-6 col-xl-4"
                 />
 

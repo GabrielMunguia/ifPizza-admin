@@ -7,8 +7,8 @@ export const AppContext = createContext<IAppContext>({
    
     session:{
         user:{
-            user: "",
-            isAuth: false,
+            user: localStorage.getItem('user')??"",
+            isAuth: localStorage.getItem('user')?true:false,
         }
         ,
         logOut: () => {},
