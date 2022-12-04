@@ -31,7 +31,7 @@ export const uploadImageProduct = async (file: File | undefined,name:string) => 
     if (file === undefined) return "";
     //configuracion de firebase storage
     const storage = getStorage();
-    const storageRef = refStorage(storage, `products/${name}`);
+    const storageRef = refStorage(storage, `productos/${name}`);
     await uploadBytes(storageRef, file);
     const url = await getDownloadURL(storageRef);
     return url;
@@ -60,7 +60,7 @@ export const deleteProduct = async (id: string) => {
     const product:any =  await getProductById(id);
     const nombreImagen = product?.imagenNombre;
     const storage = getStorage();
-    const desertRef = refStorage(storage, `products/${nombreImagen}`);
+    const desertRef = refStorage(storage, `productos/${nombreImagen}`);
     deleteObject(desertRef);
     //eliminamos el producto
     const starCountRef = ref(db, "productos/" + id);
@@ -111,7 +111,7 @@ export const updateProduct = async (id: string,newImage:boolean, data: IProduct)
 
       const nombreImagen = product?.imagenNombre;
       const storage = getStorage();
-      const desertRef = refStorage(storage, `products/${nombreImagen}`);
+      const desertRef = refStorage(storage, `productos/${nombreImagen}`);
       await deleteObject(desertRef);
      
     }

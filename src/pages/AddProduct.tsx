@@ -39,9 +39,14 @@ export const AddProduct = () => {
   useEffect(() => {
     if(id){
       cargarProducto(id);
+      return;
     }
+    reset();
+      if(imageProduct!==""){
+        setImageProduct("");
+      }
    
-  }, [])
+  }, [id])
   
   //Este useEffect se utiliza para obtener todas las categorias de la base de datos
   useEffect(() => {
@@ -52,8 +57,10 @@ export const AddProduct = () => {
       data.map((item: any) => {
         lstCategorys.push({
           id: item[0],
-          name: item[1]?.nombre,
-          description: item[1]?.descripcion,
+          nombre: item[1]?.nombre,
+          descripcion: item[1]?.descripcion,
+
+          
         });
       });
     
@@ -106,7 +113,7 @@ export const AddProduct = () => {
      
        const nombreCategoria = categorys.find(
          (item) => item.id === values.categoria
-       )?.name;
+       )?.nombre;
        
        const resp = await addProduct({
          ...values,
@@ -117,7 +124,7 @@ export const AddProduct = () => {
    }else{
     const nombreCategoria = categorys.find(
       (item) => item.id === values.categoria
-    )?.name;
+    )?.nombre;
       if(fileImage){
          //primero subimos la imagen
        const urlImagen = await uploadImageProduct(fileImage,imagenNombre);
@@ -275,7 +282,7 @@ export const AddProduct = () => {
                   {categorys.map((item: ICategory) => {
                     return (
                       <MenuItem key={item.id} value={item.id}>
-                        {item.name}
+                        {item.nombre}
                       </MenuItem>
                     );
                   })}

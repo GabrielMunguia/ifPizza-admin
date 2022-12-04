@@ -12,12 +12,7 @@ export interface IPublicRoutes {
     to: string,
     Component: React.ComponentType<any>,
 }
-export  interface ICategory {
-    name: string;
-    description: string;
-    id?: string;
-  
-}
+
 export type iconsAlert = "success" | "error" | "warning" | "info" | "question";
 
 export interface IAlert {
@@ -68,4 +63,14 @@ export interface IAppContext {
         
     }
 }
+
+
+export interface ICategory {
+    nombre: string;
+    id?: string;
+    descripcion?: string;
+    imagenURL?: string;
+    imagenNombre?: string;
+}
+
    

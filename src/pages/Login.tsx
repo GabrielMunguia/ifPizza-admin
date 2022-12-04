@@ -30,7 +30,7 @@ export const Login = () => {
             
                 <TextField
                     id="outlined-basic"
-                    label="Usuario"
+                    label="Correo"
                     variant="outlined"
                     value={values.username}
                     onChange={handleInputChange}
