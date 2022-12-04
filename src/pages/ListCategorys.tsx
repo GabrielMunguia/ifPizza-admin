@@ -53,7 +53,7 @@ const eliminarCategoria =async  (e:any) => {
     const id = e.target.value;
 
     const seConfirma= await showConfirmAlert({
-        title: "Eliminar Producto",
+        title: "Eliminar Categoria",
         text: "¿Está seguro que desea eliminar la categoria?",
         confirmButtonText: "Si, eliminar",
         cancelButtonText: "Cancelar",
