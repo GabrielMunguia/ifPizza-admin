@@ -87,7 +87,7 @@ const eliminarCategoria =async  (e:any) => {
 
   return (
     <div className="d-flex justify-content-center py-3">
-        <div className='col-10'>
+        <div className='col-10 table-responsive'>
         <table className='table table-bordered shadow'>
             <thead className='bg-dark text-white'>
                 <tr>

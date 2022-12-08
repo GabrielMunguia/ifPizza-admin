@@ -5,6 +5,7 @@ import { AddProduct } from '../pages/AddProduct';
 import { ListProduct } from '../pages/ListProduct';
 import { Login } from '../pages/Login';
 import { AddCategory } from '../pages/AddCategory';
+import { OrderList } from '../pages/ OrderList';
 export const privateRoutes: IPrivateRoutes[] = [
     {
         path: '/inicio',
@@ -62,6 +63,14 @@ export const privateRoutes: IPrivateRoutes[] = [
         to: '/lista-categorias',
         title: 'Lista  de categorias',
         Component: ListCategorys,
+        icon: 'fa-solid fa-list',
+        visible: true
+    },
+    {
+        path: '/ordenes',
+        to: '/ordenes',
+        title: 'Ordenes',
+        Component: OrderList,
         icon: 'fa-solid fa-list',
         visible: true
     }

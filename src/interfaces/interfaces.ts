@@ -73,4 +73,25 @@ export interface ICategory {
     imagenNombre?: string;
 }
 
+export interface IOrdenProducto{
+    id?: string;
+    cantidad: number;
+    precio: number;
+    producto:string;
+    productoId: string;
+    totalCarrito: number;
+    url: string;
+}
+export interface  IOrden{
+    id?: string;
+    direccion: string;
+    id_usuario: string;
+    instrucciones: string;
+    total: number;
+    productos: IOrdenProducto[];
+   
+estatus
+: string;
+}
+
    

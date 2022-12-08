@@ -229,7 +229,11 @@ export default function AdminLayout({
         </List>
         <Divider />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main"
+      overflow="hidden"
+      maxWidth="100%"
+      
+      sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
       </Box>
