@@ -15,9 +15,10 @@ export const OrderList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+     cargarPedidos();
     timer = setInterval(async () => {
       await cargarPedidos();
-    }, 500);
+    }, 5003333333);
     return () => {
       clearInterval(timer);
     };
@@ -43,7 +44,9 @@ export const OrderList = () => {
     let lstOrdenes: IOrden[] = [];
     data.map((item: any) => {
       item = Object.entries(item);
+ 
       item.forEach((pedido: any) => {
+      
         lstOrdenes.push({
           id: pedido[0],
           direccion: pedido[1]?.direccion,
@@ -172,7 +175,7 @@ export const OrderList = () => {
                 </td>
                 <td>
                   <div className="col-12 text-center">
-                    {(item.total+0.99).toFixed(2)}
+                    {(item.total).toFixed(2)}
                   </div>
                 </td>
                 <td>
