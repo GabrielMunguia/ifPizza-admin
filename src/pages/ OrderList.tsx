@@ -15,10 +15,10 @@ export const OrderList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-     cargarPedidos();
+  
     timer = setInterval(async () => {
       await cargarPedidos();
-    }, 5003333333);
+    }, 500);
     return () => {
       clearInterval(timer);
     };
